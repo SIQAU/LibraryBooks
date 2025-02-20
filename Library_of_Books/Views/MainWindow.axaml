@@ -1,0 +1,72 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Library_of_Books.ViewModels"
+        x:Class="Library_of_Books.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Library of Books"
+        Icon="/Assets/avalonia-logo.ico"
+        Width="520" Height="650">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<Grid>
+		<!-- Анимированный фон -->
+		<Border Classes="bubble"
+                ZIndex="-1"
+                Width="500" Height="500"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+
+		<!-- Основной контент -->
+		<Border Padding="15"  CornerRadius="10" BoxShadow="0 4 10 #888888">
+			<Grid RowDefinitions="Auto, Auto, *">
+
+				<!-- Поисковая строка и кнопка -->
+				<StackPanel Orientation="Vertical" Grid.Row="0" Spacing="10">
+					<TextBox Text="{Binding SearchQuery}" Watermark="Введите запрос..."
+                             Padding="8" CornerRadius="5" />
+					<Button Content="🔍 Загрузить книги" Command="{Binding LoadMoreCommand}"
+                            Padding="8" Background="#0078D7" Foreground="White"
+                            CornerRadius="5" FontWeight="Bold">
+						<Button.Styles>
+							<Style Selector="Button:hover">
+								<Setter Property="Background" Value="#005A9E"/>
+							</Style>
+						</Button.Styles>
+					</Button>
+				</StackPanel>
+
+				<!-- Количество загруженных книг -->
+				<TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,10" FontSize="14">
+					<Run Text="Загружено " />
+					<Run Text="{Binding LoadedBooks}" FontWeight="Bold"/>
+					<Run Text=" из " />
+					<Run Text="{Binding TotalBooks}" FontWeight="Bold"/>
+				</TextBlock>
+
+				<!-- Список книг -->
+				<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+					<ItemsControl ItemsSource="{Binding Books}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border BorderThickness="1" BorderBrush="#DDD" Margin="5" Padding="8"
+                                        CornerRadius="10" Background="Black" BoxShadow="0 2 6 #BBB">
+									<StackPanel Orientation="Horizontal" Spacing="10">
+										<Image Source="{Binding CoverImage}" Width="80" Height="120" />
+										<StackPanel>
+											<TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="16"/>
+											<TextBlock Text="{Binding Author}" FontSize="14" Foreground="#555"/>
+											<TextBlock Text="{Binding Year}" FontSize="14" Foreground="#777"/>
+										</StackPanel>
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Grid>
+		</Border>
+	</Grid>
+</Window>
