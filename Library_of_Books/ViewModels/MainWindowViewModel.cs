@@ -92,7 +92,7 @@ namespace Library_of_Books.ViewModels
         {
             if (!IsLoading)
             {
-                await LoadBooksAsync();
+                await LoadBooksAsync(false);
             }
         }
     }

@@ -12,18 +12,15 @@
 	</Design.DataContext>
 
 	<Grid>
-		<!-- Анимированный фон -->
 		<Border Classes="bubble"
                 ZIndex="-1"
                 Width="500" Height="500"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"/>
 
-		<!-- Основной контент -->
 		<Border Padding="15"  CornerRadius="10" BoxShadow="0 4 10 #888888">
 			<Grid RowDefinitions="Auto, Auto, *">
 
-				<!-- Поисковая строка и кнопка -->
 				<StackPanel Orientation="Vertical" Grid.Row="0" Spacing="10">
 					<TextBox Text="{Binding SearchQuery}" Watermark="Введите запрос..."
                              Padding="8" CornerRadius="5" />
@@ -38,16 +35,13 @@
 					</Button>
 				</StackPanel>
 
-				<!-- Количество загруженных книг -->
 				<TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,10" FontSize="14">
 					<Run Text="Загружено " />
 					<Run Text="{Binding LoadedBooks}" FontWeight="Bold"/>
 					<Run Text=" из " />
 					<Run Text="{Binding TotalBooks}" FontWeight="Bold"/>
 				</TextBlock>
-
-				<!-- Список книг -->
-				<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+				<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" ScrollChanged="OnScrollChanged">
 					<ItemsControl ItemsSource="{Binding Books}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>

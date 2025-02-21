@@ -22,7 +22,7 @@ namespace Library_of_Books.Views
                     double offset = scrollViewer.Offset.Y;
                     double maxOffset = scrollViewer.Extent.Height - scrollViewer.Viewport.Height;
 
-                    if (offset >= maxOffset - 50) 
+                    if (offset >= maxOffset - 100)
                     {
                         viewModel.CheckForMoreBooksCommand.Execute(null);
                     }
